@@ -39,3 +39,5 @@ $ rails server
 
 For more information, see the
 [*Ruby on Rails Tutorial* book](http://www.railstutorial.org/book).
+
+in Procfile: web: bundle exec puma -C config/puma.rb
