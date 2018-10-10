@@ -20,6 +20,11 @@ module SessionsHelper
   	!current_user.nil?
   end
 
+   # Returns true if the given user is the current user (to check if you are the same user)
+  def current_user?(user)
+    user == current_user
+  end
+
 
   # Returns the user corresponding to the remember token cookie.
   def current_user
@@ -50,4 +55,21 @@ module SessionsHelper
     @current_user = nil
   end
 
+  ### if you user tries to access another page, helper method
+  ## to redirect to the correct login page (save page) have to keep
+  ## track and store it first before directing
+
+  # Redirects to stored location (or to the default).
+  def redirect_back_or(default)
+    redirect_to(session[:forwarding_url] || default)
+    session.delete(:forwarding_url)
+  end
+
+  # Stores the URL trying to be accessed.
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+    #request object, request.get (get request)
+  end
 end
+
+
